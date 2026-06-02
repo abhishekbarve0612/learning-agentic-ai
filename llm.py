@@ -4,12 +4,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# client = OpenAI()
+openai_client = OpenAI()
 client = Anthropic()
 
-GPT_MINI = "gpt-5.5-mini"
+GPT_MINI = "gpt-5.4-mini"
 HAIKU = "claude-haiku-4-5-20251001"
 SONNET = "claude-sonnet-4-6"
+
 
 def call(
     prompt = None,
@@ -45,3 +46,35 @@ def call(
 def text_of(msg):
     """Concatenate all text blocks of a message into a plain sring."""
     return "".join(b.text for b in msg.content if b.type == "text")
+
+def openai_call(
+    prompt = None,
+    *,
+    system = None,
+    model = GPT_MINI,
+    temperature = 1.0,
+    max_tokens = 1024,
+    tools = None,
+    messages = None
+    ):
+    kwargs = {
+        "model": model,
+        "messages": messages,
+        "temperature": temperature,
+    }
+
+    if system:
+        kwargs["system"] = system
+
+    if tools:
+        kwargs["tools"] = tools
+
+    kwargs["messages"] = messages if messages is not None else [
+        {
+            "role": "user", "content": prompt,
+        }
+    ]
+    return openai_client.chat.completions.create(**kwargs)
+
+def openai_text_of(msg):
+    return "".join(txt for txt in msg.choices[0].message.content)
