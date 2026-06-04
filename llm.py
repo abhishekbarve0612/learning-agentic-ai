@@ -10,7 +10,8 @@ client = Anthropic()
 GPT_MINI = "gpt-5.4-mini"
 HAIKU = "claude-haiku-4-5-20251001"
 SONNET = "claude-sonnet-4-6"
-
+FLASH = "gemini-3.5-flash"
+EMBED_MODEL = "gemini-embedding-001"
 
 def call(
     prompt = None,
