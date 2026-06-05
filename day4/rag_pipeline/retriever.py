@@ -13,3 +13,7 @@ def build_retriever(chunks, embeddings, k = TOP_K, score_threshold=SCORE_THRESHO
             "score_threshold": score_threshold,
         }
     )
+
+def reorder_for_context(chunks):
+    from langchain_community.document_transformers import LongContextReorder
+    return list(LongContextReorder().transform_documents(chunks))

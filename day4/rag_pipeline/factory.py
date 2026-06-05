@@ -43,9 +43,3 @@ def make_embeddings(provider=HUGGINGFACE):
         return GoogleGenerativeAIEmbeddings(model=GOOGLE_EMBEDDING_MODEL)
 
     raise ValueError(f"Invalid provider: {provider}")
-
-def make_vectorstore(provider=HUGGINGFACE):
-    if provider == HUGGINGFACE:
-        from langchain_community.vectorstores import FAISS
-        return FAISS
-    
