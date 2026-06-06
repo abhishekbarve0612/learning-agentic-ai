@@ -1,0 +1,20 @@
+[MESSAGES CONTROL]
+# Disable specific pylint rules by their code or symbolic name.
+# Add comma-separated rule IDs or names below.
+# Examples:
+#   C0114 = missing-module-docstring
+#   C0115 = missing-class-docstring
+#   C0116 = missing-function-docstring
+#   W0611 = unused-import
+#   C0301 = line-too-long
+#   R0903 = too-few-public-methods
+disable=
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    import-outside-toplevel,
+    unsupported-binary-operation
+
+[FORMAT]
+# Max line length (default is 100)
+max-line-length=120

@@ -2,7 +2,7 @@
 import sys
 from dotenv import load_dotenv
 
-from day4.rag_pipeline.factory import make_embeddings, make_llm
+from factory import make_embeddings, make_llm
 from day4.rag_pipeline.ingest import chunk_docs, load_corpus
 from day4.rag_pipeline.orchestrate import answer_question
 from day4.rag_pipeline.retriever import build_retriever

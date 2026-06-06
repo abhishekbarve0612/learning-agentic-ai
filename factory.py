@@ -1,18 +1,14 @@
-ANTHROPIC = "anthropic"
-OPENAI = "openai"
-GOOGLE = "google"
-HUGGINGFACE = "huggingface"
-temperature = 0.0
 
-ANTHROPIC_MODEL = "claude-haiku-4-5-20251001"
-OPENAI_MODEL = "gpt-4o"
-GOOGLE_MODEL = "gemini-3.5-flash"
 
-HUGGINGFACE_EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
-OPENAI_EMBEDDING_MODEL = "text-embedding-3-small"
-GOOGLE_EMBEDDING_MODEL = "gemini-embedding-001"
+from config.settings import (
+    ANTHROPIC, OPENAI, GOOGLE, HUGGINGFACE,
+    ANTHROPIC_MODEL, OPENAI_MODEL, GOOGLE_MODEL,
+    HUGGINGFACE_EMBEDDING_MODEL, OPENAI_EMBEDDING_MODEL, GOOGLE_EMBEDDING_MODEL,
+    TEMPERATURE,
+)
 
-def make_llm(provider=ANTHROPIC, temperature=temperature):
+
+def make_llm(provider=ANTHROPIC, temperature=TEMPERATURE):
     if provider == ANTHROPIC:
         from langchain_anthropic import ChatAnthropic
         return ChatAnthropic(model=ANTHROPIC_MODEL, temperature=temperature)
