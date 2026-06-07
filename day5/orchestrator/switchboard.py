@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import Any, Callable
 
@@ -48,7 +50,7 @@ class SwitchBoard:
             trace.llm_calls += 1
             docs_spec               = self.retriever.invoke(question)
             docs_broad              = self.retriever.invoke(broad)
-            trace.searches += 1
+            trace.searches += 2
             trace.candidates        = len(docs_spec) + len(docs_broad)
             trace.llm_calls += 1
 
@@ -75,6 +77,7 @@ class SwitchBoard:
             trace.sub_questions   = subs
             trace.llm_calls += 1
             per_subq              = self.retriever.batch(subs)
+            trace.searches       += len(subs)
             trace.candidates      = sum(len(x) for x in per_subq)
             fused                 = _rrf(per_subq)[:4]
             trace.kept            = len(fused)
@@ -109,7 +112,7 @@ def build_switchboard(docs_path: str | None = None) -> SwitchBoard:
     return SwitchBoard(
         planner                  = make_planner(llm),
         retriever                = retriever,
-        decompose               = make_decompose_chain(llm),
+        decompose                = make_decompose_chain(llm),
         step_back_gen            = make_step_back_chain(llm),
         hyde_retrieve            = make_hyde_retrieve(hyde_gen, embedding, vectorstore),
         answer                   = make_answer_chain(llm),

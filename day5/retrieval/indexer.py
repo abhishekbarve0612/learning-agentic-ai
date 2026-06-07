@@ -1,4 +1,5 @@
-from openai.types.shared import metadata
+from __future__ import annotations
+
 from config import SAMPLE_DOCS
 
 
@@ -6,7 +7,7 @@ def load_corpus(docs_path: str | None):
     from langchain_core.documents import Document
 
     if not docs_path:
-        return [Document(page_content=text, metadata={"sources": stc}) for text, src in SAMPLE_DOCS]
+        return [Document(page_content=text, metadata={"sources": src}) for text, src in SAMPLE_DOCS]
 
     from pathlib import Path
     root = Path(docs_path)

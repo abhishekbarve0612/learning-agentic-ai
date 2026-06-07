@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Literal
+from typing import Literal, Optional
 from pydantic import BaseModel, Field
 
 
@@ -19,7 +19,7 @@ class QueryPlan(BaseModel):
 @dataclass
 class Plan:
     route: str          # docs | math | smalltalk
-    strategy: str       # simple | decompose | step_back | hyde
+    strategy: Optional[str]       # simple | decompose | step_back | hyde
     reasoning: str
 
 
