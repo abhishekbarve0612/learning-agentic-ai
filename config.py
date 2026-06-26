@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 
 
@@ -15,11 +16,29 @@ HUGGINGFACE_EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 OPENAI_EMBEDDING_MODEL = "text-embedding-3-small"
 GOOGLE_EMBEDDING_MODEL = "gemini-embedding-001"
 
+EMBED_MODELS = {
+    HUGGINGFACE: HUGGINGFACE_EMBEDDING_MODEL,
+    GOOGLE: GOOGLE_EMBEDDING_MODEL,
+    OPENAI: OPENAI_EMBEDDING_MODEL,
+}
+
+LLM_MODELS = {
+    OPENAI: OPENAI_MODEL,
+    ANTHROPIC: ANTHROPIC_MODEL,
+    GOOGLE: GOOGLE_MODEL,
+}
+
 LLM_PROVIDER = ANTHROPIC
 EMBED_PROVIDER = HUGGINGFACE
 
+CROSS_ENCODER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+
 K = 3
 RRF_K = 60
+
+NET_K = 15 # How wide the net casts (recall)
+RERANK_TOP_K = 3 # How many the scalpel keeps (precision)
+
 
 
 
@@ -39,3 +58,10 @@ SAMPLE_DOCS: list[tuple[str, str]] = [
     ("Remote-work policy: employees may work remotely up to 3 days/week with manager "
      "approval.",                                                          "hr_policy.md"),
 ]
+
+EMBED_PROVIDER = os.getenv("EMBED_PROVIDER", "huggingface")
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "none")
+
+COMPRESSION_MODE = os.getenv("COMPRESSION_MODE", "embeddings_filter")
+
+EMBEDDINGS_FILTER_THRESHOLD = float(os.getenv("EMB_FILTER_THRESHOLD", "0.3"))
